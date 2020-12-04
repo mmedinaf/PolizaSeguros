@@ -1,0 +1,38 @@
+﻿@model IEnumerable<PruebaLafise.Models.Seguro>
+
+@{
+    ViewBag.Title = "Seguros";
+}
+
+<h2>Tipos de Seguros</h2>
+
+<p>
+    @Html.ActionLink("Nuevo Tipo de Seguro", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DescripcionSeguro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CostoSeguro)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.DescripcionSeguro
+        </td>
+        <td>
+            @item.CostoSeguro.ToString("#,##0.00", System.Globalization.CultureInfo.InvariantCulture)
+        </td>
+        <td>
+            @Html.ActionLink("Modificar", "Edit", new { id=item.IdSeguro }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.IdSeguro })
+        </td>
+    </tr>
+}
+
+</table>

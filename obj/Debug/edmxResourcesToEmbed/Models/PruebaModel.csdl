@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PruebaSegurosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Poliza">
+    <Key>
+      <PropertyRef Name="IdPoliza" />
+    </Key>
+    <Property Name="IdPoliza" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cliente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FechaAdquisicion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FechaVencimiento" Type="DateTime" Precision="3" />
+    <Property Name="IdSeguro" Type="Int32" />
+    <NavigationProperty Name="Seguro" Relationship="Self.FK__Poliza__IdSeguro__276EDEB3" FromRole="Poliza" ToRole="Seguro" />
+  </EntityType>
+  <EntityType Name="Seguro">
+    <Key>
+      <PropertyRef Name="IdSeguro" />
+    </Key>
+    <Property Name="IdSeguro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DescripcionSeguro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CostoSeguro" Type="Decimal" Precision="7" Scale="2" Nullable="false" />
+    <NavigationProperty Name="Poliza" Relationship="Self.FK__Poliza__IdSeguro__276EDEB3" FromRole="Seguro" ToRole="Poliza" />
+  </EntityType>
+  <Association Name="FK__Poliza__IdSeguro__276EDEB3">
+    <End Role="Seguro" Type="Self.Seguro" Multiplicity="0..1" />
+    <End Role="Poliza" Type="Self.Poliza" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Seguro">
+        <PropertyRef Name="IdSeguro" />
+      </Principal>
+      <Dependent Role="Poliza">
+        <PropertyRef Name="IdSeguro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PruebaSegurosEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Poliza" EntityType="Self.Poliza" />
+    <EntitySet Name="Seguro" EntityType="Self.Seguro" />
+    <AssociationSet Name="FK__Poliza__IdSeguro__276EDEB3" Association="Self.FK__Poliza__IdSeguro__276EDEB3">
+      <End Role="Seguro" EntitySet="Seguro" />
+      <End Role="Poliza" EntitySet="Poliza" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

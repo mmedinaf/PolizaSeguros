@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PruebaSegurosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Poliza">
+    <Key>
+      <PropertyRef Name="IdPoliza" />
+    </Key>
+    <Property Name="IdPoliza" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cliente" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="FechaAdquisicion" Type="datetime" Nullable="false" />
+    <Property Name="FechaVencimiento" Type="datetime" />
+    <Property Name="IdSeguro" Type="int" />
+  </EntityType>
+  <EntityType Name="Seguro">
+    <Key>
+      <PropertyRef Name="IdSeguro" />
+    </Key>
+    <Property Name="IdSeguro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DescripcionSeguro" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CostoSeguro" Type="decimal" Precision="7" Scale="2" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Poliza__IdSeguro__276EDEB3">
+    <End Role="Seguro" Type="Self.Seguro" Multiplicity="0..1" />
+    <End Role="Poliza" Type="Self.Poliza" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Seguro">
+        <PropertyRef Name="IdSeguro" />
+      </Principal>
+      <Dependent Role="Poliza">
+        <PropertyRef Name="IdSeguro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PruebaSegurosModelStoreContainer">
+    <EntitySet Name="Poliza" EntityType="Self.Poliza" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Seguro" EntityType="Self.Seguro" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Poliza__IdSeguro__276EDEB3" Association="Self.FK__Poliza__IdSeguro__276EDEB3">
+      <End Role="Seguro" EntitySet="Seguro" />
+      <End Role="Poliza" EntitySet="Poliza" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

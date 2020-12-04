@@ -1,0 +1,56 @@
+﻿@model PruebaLafise.Models.Poliza
+
+@{
+    ViewBag.Title = "Borrar Póliza";
+}
+
+<h2>Eliminando Póliza # @Model.IdPoliza</h2>
+
+<h3>¿Está seguro que quiere eliminar este registro?</h3>
+<div>
+    <h4>Poliza</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaAdquisicion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaAdquisicion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaVencimiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaVencimiento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seguro.DescripcionSeguro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seguro.DescripcionSeguro)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Volver a la lista", "Index")
+        </div>
+    }
+</div>

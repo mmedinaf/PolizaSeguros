@@ -1,0 +1,60 @@
+﻿@model IEnumerable<PruebaLafise.Models.Poliza>
+
+@{
+    ViewBag.Title = "Pólizas";
+}
+
+<link rel="stylesheet" href="~/Content/bootstrap-theme.min.css">
+
+<h2>Pólizas Vendidas</h2>
+
+<p>
+    @Html.ActionLink("Nueva Póliza", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Cliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaAdquisicion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaVencimiento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Seguro.DescripcionSeguro)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Cliente
+            </td>
+            <td>
+                @item.FechaAdquisicion.ToString("dd MMM yyyy", new System.Globalization.CultureInfo("es-ES"))
+            </td>
+            <td>
+                @{
+                    string vencimiento = item.FechaVencimiento.HasValue ? item.FechaVencimiento.Value.ToString("dd MMM yyyy", new System.Globalization.CultureInfo("es-ES")) : "";
+                }
+                @vencimiento
+            </td>
+            <td>
+                @item.Seguro.DescripcionSeguro
+            </td>
+            <td>
+                @*<a href="@Url.Action("Edit", "Polizas", new { Area = "" })"><i class="la la-edit"></i></a>*@
+                @*<a href="@Url.Action("Delete", "Polizas", new { Area = "" })"><i class="la la-remove"></i></a>*@
+                @Html.ActionLink("Modificar", "Edit", new { id = item.IdPoliza }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.IdPoliza })
+            </td>
+        </tr>
+    }
+
+</table>
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
